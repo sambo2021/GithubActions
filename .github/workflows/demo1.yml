@@ -1,4 +1,4 @@
-name: hello-world
+name: merging-rules
 on:
    pull_request:
       branches:
@@ -17,14 +17,34 @@ jobs:
            echo "Merges to main are only allowed from the release/QA branch."
            exit 1
          fi
-  commit-message-check-job:
+  commits-messages-check-job:
     runs-on: ubuntu-latest
     name: commit-message-validation
     steps:
-      - uses: actions/checkout@v4
-      - name: echo-message
+      - name: checkout-repo
+        uses: actions/checkout@v3
+      - name: check-commits
         run: |
-          echo $(git log -1 --pretty=%B)
+          regex="^(fix|feat|chore):\\s+[a-zA-Z0-9 ]+\\S$"
+          source_branch="${{ github.event.pull_request.head.ref }}"
+          target_branch="${{ github.event.pull_request.base.ref }}"
+          git fetch origin $source_branch $target_branch
+          commits=$(git log origin/$target_branch..origin/$source_branch --oneline --pretty=format:"%s")
+          while IFS= read -r commit; do
+              echo $commit
+              if [[ "$commit" =~ $regex ]]; then
+                  echo "The commits are valid"
+              else
+                  echo "The commit: $commit is not valid"
+                  exit 1
+              fi
+          done <<< "$commits"
+      - name: success-commits
+        if: success()
+        run: echo "All commits are valid"
+      # - name: echo-message
+      #   run: |
+      #     echo $(git log -1 --pretty=%B)
       # - name: validate-message
       #   uses: uptownaravi/verify-commit-message-action@v2
       #   with:
