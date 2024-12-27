@@ -5,4 +5,5 @@
 ## test04 merge restriction
 ## test05 merge restriction
 ## test06 merge restriction
+## test07 merge restriction
 
