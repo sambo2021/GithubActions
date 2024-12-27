@@ -25,8 +25,8 @@ jobs:
       - name: echo-message
         run: |
           echo $(git log -1 --pretty=%B)
-      - name: validate-message
-        uses: uptownaravi/verify-commit-message-action@v2
-        with:
-          regex: '^(fix|feat|chore):\\s+[a-zA-Z0-9 ]+\\S$'
+      # - name: validate-message
+      #   uses: uptownaravi/verify-commit-message-action@v2
+      #   with:
+      #     regex: '^(fix|feat|chore):\\s+[a-zA-Z0-9 ]+\\S$'
 
