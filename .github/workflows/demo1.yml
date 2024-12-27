@@ -1,8 +1,11 @@
 name: hello-world
 on:
    pull_request:
-     branches:
-     - main
+      branches:
+      - main
+   push:
+      branches:
+      - main
 jobs:
   restrict-to-merge-branch-main:
    runs-on: ubuntu-latest
