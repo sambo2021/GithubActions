@@ -1,18 +1,16 @@
 name: hello-world
 on: push
 jobs:
-  # commit-message-check-job:
-  #   runs-on: ubuntu-latest
-  #   name: commit-message-validation
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - id: foo
-  #       uses: uptownaravi/verify-commit-message-action@v2
-  #       with:
-  #         regex: '^(fix|feat|chore):\s+\w+\s+\d+$'
-  commit-message:
+  commit-message-check-job:
     runs-on: ubuntu-latest
+    name: commit-message-validation
     steps:
-    - uses: actions/checkout@v4
-    - run: |
-        echo $(git log -1 --pretty=%B)
+      - uses: actions/checkout@v4
+      - id: echo-message
+        run: |
+          echo $(git log -1 --pretty=%B)
+      - id: validate-message
+        uses: uptownaravi/verify-commit-message-action@v2
+        with:
+          regex: '^(fix|feat|chore):\\s+[a-zA-Z0-9 ]+\\S$'
+
