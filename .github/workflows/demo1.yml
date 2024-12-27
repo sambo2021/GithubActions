@@ -37,7 +37,6 @@ jobs:
                   exit 1
               fi
           done <<< "$commits"
-                - uses: actions/checkout@v4
       - name: success-commits
         if: success()
         run: echo "All commits are valid"
