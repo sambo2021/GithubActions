@@ -10,13 +10,9 @@ jobs:
   #       uses: uptownaravi/verify-commit-message-action@v2
   #       with:
   #         regex: '^(fix|feat|chore):\s+\w+\s+\d+$'
-  echo-commit:
+  commit-message:
     runs-on: ubuntu-latest
     steps:
-      - name: commit
-        run: echo "$(git log -1 --pretty=%B)"
-  hello-world:
-    runs-on: ubuntu-latest
-    steps:
-      - name: hello-world
-        run: echo "Hello World!"
+    - uses: actions/checkout@v4
+    - run: |
+        echo "$(git log -1 --pretty=%B)"
