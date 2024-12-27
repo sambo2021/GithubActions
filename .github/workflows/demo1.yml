@@ -6,10 +6,10 @@ jobs:
     name: commit-message-validation
     steps:
       - uses: actions/checkout@v4
-      - id: echo-message
+      - name: echo-message
         run: |
           echo $(git log -1 --pretty=%B)
-      - id: validate-message
+      - name: validate-message
         uses: uptownaravi/verify-commit-message-action@v2
         with:
           regex: '^(fix|feat|chore):\\s+[a-zA-Z0-9 ]+\\S$'
