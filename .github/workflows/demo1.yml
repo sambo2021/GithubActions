@@ -16,7 +16,7 @@ jobs:
          if [ "${{ github.event.pull_request.head.ref }}" != "release/QA" ]; then
            echo "Merges to main are only allowed from the release/QA branch."
            exit 1
-         fi 
+         fi
   commit-message-check-job:
     runs-on: ubuntu-latest
     name: commit-message-validation
