@@ -40,11 +40,16 @@ jobs:
       - name: success-commits
         if: success()
         run: echo "All commits are valid"
-      # - name: echo-message
-      #   run: |
-      #     echo $(git log -1 --pretty=%B)
-      # - name: validate-message
-      #   uses: uptownaravi/verify-commit-message-action@v2
-      #   with:
-      #     regex: '^(fix|feat|chore):\\s+[a-zA-Z0-9 ]+\\S$'
-
+  pre-commit:
+    runs-on: ubuntu-latest
+    name: pre-commit-validation
+    steps:
+      - name: checkout-repo
+        uses: actions/checkout@v3
+      - name: pre-commit-apt-install
+        run: |
+          apt install pre-commit
+      - name: pre-commit-install
+        run: pre-commit install
+      - name: run-pre-commit-hooks
+        run: pre-commit run --all-files

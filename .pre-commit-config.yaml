@@ -1,6 +1,12 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v5.0.0
     hooks:
-      - id: no-commit-to-branch #restrict pushing to master
+      - id: no-commit-to-branch #restrict pushing to master/main by default without any extra args
       - id: trailing-whitespace
+      - id: detect-aws-credentials
+        args: ['--allow-missing-credentials']
+      - id: check-yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: pretty-format-json
