@@ -1,8 +1,17 @@
 name: hello-world
 on: push
 jobs:
-  my-job:
+  commit-message-check-job:
+    runs-on: ubuntu-latest
+    name: commit-message-validation
+    steps:
+      - uses: actions/checkout@v3
+      - id: foo
+        uses: uptownaravi/verify-commit-message-action@v2
+        with:
+          regex: '^(fix|feat|chore):\s+\w+\s+\d+$'
+  hello-world:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
+      - name: hello-world
         run: echo "Hello World!"
