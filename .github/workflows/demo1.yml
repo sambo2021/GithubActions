@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - run: |
-        echo "$(git log -1 --pretty=%B)"
+        echo $(git log -1 --pretty=%B)
