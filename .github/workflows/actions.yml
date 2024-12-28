@@ -10,8 +10,10 @@ jobs:
      - name: Check merge branch
        if: github.event.pull_request.base.ref == 'main'
        run: |
-         if [ "${{ github.event.pull_request.head.ref }}" !~ "release/*" ]; then
-           echo "Merges to main are only allowed from the release/* branch."
+         if [[ "${{ github.event.pull_request.head.ref }}" == *"release/"* ]]; then
+           echo "release branch is detected"
+         else
+           echo "release branch isnot detected"
            exit 1
          fi
   commits-messages-check-job:
