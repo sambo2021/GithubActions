@@ -68,7 +68,7 @@ jobs:
         run: |
           PR_NUMBER=${{ github.event.pull_request.number }}
           GITHUB_REPO=${{ github.repository }}
-          echo "$GITHUB_REPO"
+          echo $GITHUB_REPO
           FILES=$(curl -s https://api.github.com/repos/$GITHUB_REPO/pulls/$PR_NUUMBER/files | jq -r '.[].filename' | grep -i "^\\.")
           if $FILES; then
             echo "Error: commiting to dot files are not allowed"
