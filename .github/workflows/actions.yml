@@ -68,7 +68,8 @@ jobs:
         run: |
           PR_NUMBER=${{ github.event.pull_request.number }}
           GITHUB_REPO=${{ github.repository }}
-          if curl -s https://api.github.com/repos/$GITHUB_REPO/pulls/$PR_NUUMBER/files | jq -r '.[].filename' | grep -i "^\\."); then
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          if curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$GITHUB_REPO/pulls/$PR_NUUMBER/files | jq -r '.[].filename' | grep -i "^\\."); then
             echo "Error: commiting to dot files are not allowed"
             exit 1
           fi
