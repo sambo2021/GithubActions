@@ -66,10 +66,17 @@ jobs:
         uses: actions/checkout@v3
       - name: dot-file-change
         run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          GITHUB_REPO=${{ github.repository }}
-          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-          if curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$GITHUB_REPO/pulls/$PR_NUUMBER/files | jq -r '.[].filename' | grep -i "^\\."); then
+          source_branch="${{ github.event.pull_request.head.ref }}"
+          target_branch="${{ github.event.pull_request.base.ref }}"
+          git fetch origin $source_branch $target_branch
+          if git diff origin/$target_branch..origin/$source_branch --oneline | grep -i "^\\."; then
             echo "Error: commiting to dot files are not allowed"
             exit 1
           fi
+          # PR_NUMBER=${{ github.event.pull_request.number }}
+          # GITHUB_REPO=${{ github.repository }}
+          # GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          # if curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/$GITHUB_REPO/pulls/$PR_NUUMBER/files | jq -r '.[].filename' | grep -i "^\\."); then
+          #   echo "Error: commiting to dot files are not allowed"
+          #   exit 1
+          # fi
