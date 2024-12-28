@@ -12,6 +12,7 @@ jobs:
        run: |
          if [[ "${{ github.event.pull_request.head.ref }}" == *"release/"* ]]; then
            echo "release branch is detected"
+           exit 0
          else
            echo "release branch isnot detected"
            exit 1
@@ -39,9 +40,7 @@ jobs:
                   exit 1
               fi
           done <<< "$commits"
-      - name: success-commits
-        if: success()
-        run: echo "All commits are valid"
+          exit 0
   pre-commit:
     runs-on: ubuntu-latest
     name: pre-commit-validation
@@ -56,3 +55,5 @@ jobs:
         run: pre-commit install
       - name: run-pre-commit-hooks
         run: pre-commit run --all-files
+      - name: success
+        run: exit 0
