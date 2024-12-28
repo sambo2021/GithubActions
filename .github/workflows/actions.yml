@@ -58,3 +58,20 @@ jobs:
         run: pre-commit run --all-files
       - name: success
         run: exit 0
+  check-dot-files:
+    runs-on: ubuntu-latest
+    name: dot-files
+    steps:
+      - name: checkout-repo
+        uses: actions/checkout@v3
+      - name: dot-file-change
+        run: |
+          source_branch="${{ github.event.pull_request.head.ref }}"
+          target_branch="${{ github.event.pull_request.base.ref }}"
+          git fetch origin $source_branch $target_branch
+          if git diff origin/$target_branch..origin/$source_branch --name-only | grep -i "^\\."; then
+            echo "Error: commiting to dot files are not allowed"
+            exit 1
+          else
+            exit 0
+          fi
