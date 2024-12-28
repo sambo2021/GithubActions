@@ -69,7 +69,7 @@ jobs:
           source_branch="${{ github.event.pull_request.head.ref }}"
           target_branch="${{ github.event.pull_request.base.ref }}"
           git fetch origin $source_branch $target_branch
-          if git diff origin/$target_branch..origin/$source_branch --oneline | grep -i "^\\."; then
+          if git diff origin/$target_branch..origin/$source_branch --name-only | grep -i "^\\."; then
             echo "Error: commiting to dot files are not allowed"
             exit 1
           fi
