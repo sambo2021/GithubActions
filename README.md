@@ -1,2 +1,2 @@
 # GithubActions
-### test merging from develop
+### test merging from develop after branch ruleset is done
