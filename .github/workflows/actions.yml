@@ -6,7 +6,7 @@ on:
 jobs:
   restrict-to-merge-branch-main:
    runs-on: ubuntu-latest
-   name: Check merge branch
+   name: check-merge-branch
    steps:
      - name: Check merge branch
        if: github.event.pull_request.base.ref == 'main'
@@ -60,7 +60,7 @@ jobs:
         run: exit 0
   check-dot-files:
     runs-on: ubuntu-latest
-    name: dot-files
+    name: dot-files-check
     steps:
       - name: checkout-repo
         uses: actions/checkout@v3
