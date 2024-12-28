@@ -10,11 +10,11 @@ jobs:
      - name: Check merge branch
        if: github.event.pull_request.base.ref == 'main'
        run: |
-         if [[ "${{ github.event.pull_request.head.ref }}" == *"release/"* ]]; then
-           echo "release branch is detected"
+         if [[ "${{ github.event.pull_request.head.ref }}" == *"feature/"* ]]; then
+           echo "feature branch is detected"
            exit 0
          else
-           echo "release branch isnot detected"
+           echo "feature branch is not detected"
            exit 1
          fi
   commits-messages-check-job:
