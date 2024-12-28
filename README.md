@@ -1,2 +1,2 @@
 # GithubActions
-### modify ruleset
+### modify ruleset and test it
