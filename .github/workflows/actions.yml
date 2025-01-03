@@ -87,4 +87,4 @@ jobs:
           pip install -r ./flask-app/requirements.txt
           pip install pytest
       - name: pytest
-        run: pytest test.py
+        run: pytest ./flask-app/test.py
